@@ -1,0 +1,332 @@
+[
+  {
+    "id": "bio_001",
+    "name": "Total Cholesterol",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 120,
+      "high": 200
+    },
+    "category": "Lipids",
+    "importance": 8
+  },
+  {
+    "id": "bio_002",
+    "name": "LDL Cholesterol",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 0,
+      "high": 130
+    },
+    "category": "Lipids",
+    "importance": 9
+  },
+  {
+    "id": "bio_003",
+    "name": "HDL Cholesterol",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 40,
+      "high": 90
+    },
+    "category": "Lipids",
+    "importance": 8
+  },
+  {
+    "id": "bio_004",
+    "name": "Triglycerides",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 0,
+      "high": 150
+    },
+    "category": "Lipids",
+    "importance": 7
+  },
+  {
+    "id": "bio_005",
+    "name": "Apolipoprotein B (ApoB)",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 60,
+      "high": 100
+    },
+    "category": "Lipids",
+    "importance": 9
+  },
+  {
+    "id": "bio_006",
+    "name": "Glucose (fasting)",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 70,
+      "high": 99
+    },
+    "category": "Metabolic",
+    "importance": 9
+  },
+  {
+    "id": "bio_007",
+    "name": "HbA1c",
+    "standardUnit": "%",
+    "referenceRange": {
+      "low": 4.0,
+      "high": 5.6
+    },
+    "category": "Metabolic",
+    "importance": 10
+  },
+  {
+    "id": "bio_008",
+    "name": "Insulin (fasting)",
+    "standardUnit": "µIU/mL",
+    "referenceRange": {
+      "low": 2.0,
+      "high": 15.0
+    },
+    "category": "Metabolic",
+    "importance": 7
+  },
+  {
+    "id": "bio_009",
+    "name": "Uric Acid",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 3.4,
+      "high": 7.0
+    },
+    "category": "Metabolic",
+    "importance": 5
+  },
+  {
+    "id": "bio_010",
+    "name": "Creatinine",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 0.7,
+      "high": 1.2
+    },
+    "category": "Kidney",
+    "importance": 8
+  },
+  {
+    "id": "bio_011",
+    "name": "eGFR (CKD-EPI)",
+    "standardUnit": "mL/min/1.73m²",
+    "referenceRange": {
+      "low": 90,
+      "high": 140
+    },
+    "category": "Kidney",
+    "importance": 9
+  },
+  {
+    "id": "bio_012",
+    "name": "Blood Urea Nitrogen (BUN)",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 7,
+      "high": 20
+    },
+    "category": "Kidney",
+    "importance": 6
+  },
+  {
+    "id": "bio_013",
+    "name": "Sodium",
+    "standardUnit": "mmol/L",
+    "referenceRange": {
+      "low": 135,
+      "high": 145
+    },
+    "category": "Electrolytes",
+    "importance": 7
+  },
+  {
+    "id": "bio_014",
+    "name": "Potassium",
+    "standardUnit": "mmol/L",
+    "referenceRange": {
+      "low": 3.5,
+      "high": 5.1
+    },
+    "category": "Electrolytes",
+    "importance": 8
+  },
+  {
+    "id": "bio_015",
+    "name": "Chloride",
+    "standardUnit": "mmol/L",
+    "referenceRange": {
+      "low": 98,
+      "high": 107
+    },
+    "category": "Electrolytes",
+    "importance": 5
+  },
+  {
+    "id": "bio_016",
+    "name": "AST (GOT)",
+    "standardUnit": "U/L",
+    "referenceRange": {
+      "low": 10,
+      "high": 40
+    },
+    "category": "Liver",
+    "importance": 7
+  },
+  {
+    "id": "bio_017",
+    "name": "ALT (GPT)",
+    "standardUnit": "U/L",
+    "referenceRange": {
+      "low": 7,
+      "high": 45
+    },
+    "category": "Liver",
+    "importance": 7
+  },
+  {
+    "id": "bio_018",
+    "name": "GGT",
+    "standardUnit": "U/L",
+    "referenceRange": {
+      "low": 9,
+      "high": 50
+    },
+    "category": "Liver",
+    "importance": 6
+  },
+  {
+    "id": "bio_019",
+    "name": "Alkaline Phosphatase (ALP)",
+    "standardUnit": "U/L",
+    "referenceRange": {
+      "low": 40,
+      "high": 130
+    },
+    "category": "Liver",
+    "importance": 5
+  },
+  {
+    "id": "bio_020",
+    "name": "Bilirubin (total)",
+    "standardUnit": "mg/dL",
+    "referenceRange": {
+      "low": 0.2,
+      "high": 1.2
+    },
+    "category": "Liver",
+    "importance": 6
+  },
+  {
+    "id": "bio_021",
+    "name": "C-Reactive Protein (CRP)",
+    "standardUnit": "mg/L",
+    "referenceRange": {
+      "low": 0.0,
+      "high": 3.0
+    },
+    "category": "Inflammation",
+    "importance": 8
+  },
+  {
+    "id": "bio_022",
+    "name": "Ferritin",
+    "standardUnit": "ng/mL",
+    "referenceRange": {
+      "low": 30,
+      "high": 300
+    },
+    "category": "Iron",
+    "importance": 7
+  },
+  {
+    "id": "bio_023",
+    "name": "Iron (serum)",
+    "standardUnit": "µg/dL",
+    "referenceRange": {
+      "low": 60,
+      "high": 170
+    },
+    "category": "Iron",
+    "importance": 6
+  },
+  {
+    "id": "bio_024",
+    "name": "Transferrin Saturation",
+    "standardUnit": "%",
+    "referenceRange": {
+      "low": 20,
+      "high": 50
+    },
+    "category": "Iron",
+    "importance": 6
+  },
+  {
+    "id": "bio_025",
+    "name": "Vitamin D (25-OH)",
+    "standardUnit": "ng/mL",
+    "referenceRange": {
+      "low": 30,
+      "high": 80
+    },
+    "category": "Vitamins",
+    "importance": 7
+  },
+  {
+    "id": "bio_026",
+    "name": "Vitamin B12",
+    "standardUnit": "pg/mL",
+    "referenceRange": {
+      "low": 200,
+      "high": 900
+    },
+    "category": "Vitamins",
+    "importance": 6
+  },
+  {
+    "id": "bio_027",
+    "name": "TSH",
+    "standardUnit": "µIU/mL",
+    "referenceRange": {
+      "low": 0.4,
+      "high": 4.0
+    },
+    "category": "Thyroid",
+    "importance": 8
+  },
+  {
+    "id": "bio_028",
+    "name": "Free T4",
+    "standardUnit": "ng/dL",
+    "referenceRange": {
+      "low": 0.9,
+      "high": 1.7
+    },
+    "category": "Thyroid",
+    "importance": 7
+  },
+  {
+    "id": "bio_029",
+    "name": "Hemoglobin",
+    "standardUnit": "g/dL",
+    "referenceRange": {
+      "low": 13.5,
+      "high": 17.5
+    },
+    "category": "Blood",
+    "importance": 8
+  },
+  {
+    "id": "bio_030",
+    "name": "White Blood Cells (WBC)",
+    "standardUnit": "x10^9/L",
+    "referenceRange": {
+      "low": 4.0,
+      "high": 10.0
+    },
+    "category": "Blood",
+    "importance": 7
+  }
+]

@@ -1,0 +1,282 @@
+[
+  {
+    "id": "res_001",
+    "biomarkerId": "bio_001",
+    "value": 228,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_002",
+    "biomarkerId": "bio_002",
+    "value": 154,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_003",
+    "biomarkerId": "bio_003",
+    "value": 42,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_004",
+    "biomarkerId": "bio_004",
+    "value": 210,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_005",
+    "biomarkerId": "bio_005",
+    "value": 122,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_006",
+    "biomarkerId": "bio_006",
+    "value": 106,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_007",
+    "biomarkerId": "bio_007",
+    "value": 5.7,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_008",
+    "biomarkerId": "bio_008",
+    "value": 18.2,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_009",
+    "biomarkerId": "bio_009",
+    "value": 7.6,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_010",
+    "biomarkerId": "bio_010",
+    "value": 1.25,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_011",
+    "biomarkerId": "bio_011",
+    "value": 68,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "low"
+  },
+  {
+    "id": "res_012",
+    "biomarkerId": "bio_012",
+    "value": 24,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_013",
+    "biomarkerId": "bio_013",
+    "value": 140,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_014",
+    "biomarkerId": "bio_014",
+    "value": 5.3,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_015",
+    "biomarkerId": "bio_015",
+    "value": 103,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_016",
+    "biomarkerId": "bio_016",
+    "value": 46,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_017",
+    "biomarkerId": "bio_017",
+    "value": 62,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_018",
+    "biomarkerId": "bio_018",
+    "value": 78,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_019",
+    "biomarkerId": "bio_019",
+    "value": 88,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_020",
+    "biomarkerId": "bio_020",
+    "value": 1.3,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_021",
+    "biomarkerId": "bio_021",
+    "value": 6.4,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_022",
+    "biomarkerId": "bio_022",
+    "value": 22,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "low"
+  },
+  {
+    "id": "res_023",
+    "biomarkerId": "bio_023",
+    "value": 55,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "low"
+  },
+  {
+    "id": "res_024",
+    "biomarkerId": "bio_024",
+    "value": 14,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "low"
+  },
+  {
+    "id": "res_025",
+    "biomarkerId": "bio_025",
+    "value": 18,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "low"
+  },
+  {
+    "id": "res_026",
+    "biomarkerId": "bio_026",
+    "value": 310,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_027",
+    "biomarkerId": "bio_027",
+    "value": 4.8,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_028",
+    "biomarkerId": "bio_028",
+    "value": 0.9,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_029",
+    "biomarkerId": "bio_029",
+    "value": 12.4,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "low"
+  },
+  {
+    "id": "res_030",
+    "biomarkerId": "bio_030",
+    "value": 11.2,
+    "sampledAt": "2026-01-10T08:30:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_031",
+    "biomarkerId": "bio_001",
+    "value": 215,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_032",
+    "biomarkerId": "bio_002",
+    "value": 142,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_033",
+    "biomarkerId": "bio_003",
+    "value": 44,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_034",
+    "biomarkerId": "bio_006",
+    "value": 95,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_035",
+    "biomarkerId": "bio_007",
+    "value": 5.4,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_036",
+    "biomarkerId": "bio_021",
+    "value": 8.5,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "high"
+  },
+  {
+    "id": "res_037",
+    "biomarkerId": "bio_025",
+    "value": 15,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "low"
+  },
+  {
+    "id": "res_038",
+    "biomarkerId": "bio_026",
+    "value": 320,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_039",
+    "biomarkerId": "bio_027",
+    "value": 3.6,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "normal"
+  },
+  {
+    "id": "res_040",
+    "biomarkerId": "bio_029",
+    "value": 11.8,
+    "sampledAt": "2025-10-15T09:00:00.000Z",
+    "status": "low"
+  }
+]
