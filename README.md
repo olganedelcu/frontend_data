@@ -10,6 +10,7 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173)
+Hoisted: [https://frontend-data-9eej.vercel.app/](https://frontend-data-9eej.vercel.app/)
 
 ## Features
 
