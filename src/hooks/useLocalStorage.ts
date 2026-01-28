@@ -1,29 +1,28 @@
 import { useState, useCallback } from 'react';
 
-export function useLocalStorage<Value>(key: string, initialValue: Value) {
-  const [storedValue, setStoredValue] = useState<Value>(() => {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : initialValue;
+// stores and recoveres values from localStorage
+export function useLocalStorage<T>(key: string, initialValue: T) {
+  const [value, setValue] = useState(() => {
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : initialValue;
   });
 
-  const setValue = useCallback((value: Value | ((prev: Value) => Value)) => {
-    setStoredValue(prev => {
-      const newValue = value instanceof Function ? value(prev) : value;
-      localStorage.setItem(key, JSON.stringify(newValue));
-      return newValue;
-    });
+  const save = useCallback((newValue: T) => {
+    setValue(newValue);
+    localStorage.setItem(key, JSON.stringify(newValue));
   }, [key]);
 
-  return [storedValue, setValue] as const;
+  return [value, save] as const;
 }
 
+// manages stored notes by id(like a diccionario)
 export function useNotes() {
   const [notes, setNotes] = useLocalStorage<Record<string, string>>('biomarker-notes', {});
 
-  const getNote = useCallback((id: string) => notes[id] || '', [notes]);
-  const setNote = useCallback((id: string, note: string) => {
-    setNotes(prev => ({ ...prev, [id]: note }));
-  }, [setNotes]);
+  const getNote = (id: string) => notes[id] || '';
+  const setNote = (id: string, note: string) => {
+    setNotes({ ...notes, [id]: note });
+  };
 
   return { getNote, setNote };
 }
