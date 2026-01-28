@@ -23,9 +23,9 @@ Open [http://localhost:5173](http://localhost:5173)
 ## Key Decisions & Trade-offs
 
 ### Architecture
-- **Single page, no router** - Simple app doesn't need routing complexity
-- **Hooks** - Custom hooks (`useBiomarkerData`, `useNotes`) keep data logic out of components
-- **Flat component structure** - No deep nesting, all components in `/components`
+- **Page-based structure** - Pages in `/pages`, components in `/components`; designed with scalability in mind, easy to add routing as the app grows
+- **Custom hooks** - `useBiomarkerData` for data fetching, `useFilteredResults` for filtering/sorting logic, `useLocalStorage` for persisted state - keeps business logic out of components
+- **Tests** - Unit tests in `/utils/tests` using Vitest
 
 ### State Management
 - **React useState** - No Redux/Zustand needed for this scale
@@ -44,25 +44,35 @@ Open [http://localhost:5173](http://localhost:5173)
 | Single fetch on mount | Simple data flow | No real-time updates |
 | Drawer instead of modal | Better for detailed content | Takes full screen height |
 
+## Mock API Setup
+
+To simulate real-world data fetching, I served the `biomarkers.json` and `results.json` files via the `/public/api` directory and fetched them through relative URLs. This mimics a REST API response without setting up a backend.
+
+```js
+fetch('/api/biomarkers.json') // acts like a GET /api/biomarkers; simulate real api call
+```
+
 ## AI Tools Used
 
 Used Claude AI for:
+- Mocking data and testing 
 - TypeScript type definitions
 - Component refactoring and simplification
 
 ## What I'd Do Next
 
 With more time:
-- Add tests (Vitest + React Testing Library)
-- Add animations for drawer open/close
-- Historical trend chart for biomarkers with multiple samples
-- Search/filter by biomarker name
+- Add animations for drawer transitions
+- Show historical trends for biomarkers with multiple results
+- Add search and filter by name
 - Export results to PDF
-- Dark mode support
+- Support dark mode
+- Set up a CI pipeline using GitHub Actions for automated testing and linting
+- Protect the main branch to ensure all changes go through pull requests and pass CI checks before merging
 
 ## Tech Stack
 
 - React 19
 - TypeScript
 - Vite
-- Tailwind CSS v4
+- Tailwind CSS 
