@@ -42,8 +42,9 @@ Hoisted: [https://frontend-data-9eej.vercel.app/](https://frontend-data-9eej.ver
 |----------|---------|-----------|
 | No component library | Smaller bundle, full control | More manual styling |
 | localStorage | No backend needed | Data lost if cleared |
-| Single fetch on mount | Simple data flow | No real-time updates |
+| Simple fetch on mount | Simple data flow | No real-time updates |
 | Drawer instead of modal | Better for detailed content | Takes full screen height |
+| Desktop-first design | Optimized for primary use case | Requires work for mobile |
 
 ## Mock API Setup
 
