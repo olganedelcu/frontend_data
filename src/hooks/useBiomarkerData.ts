@@ -21,19 +21,19 @@ export function useBiomarkerData(): State {
   useEffect(() => {
     const load = async () => {
       try {
-        await new Promise(r => setTimeout(r, 500)); // Simulate delay
+        await new Promise(result => setTimeout(result, 500)); // Simulate delay
 
         const [biomarkers, results]: [Biomarker[], Result[]] = await Promise.all([
-          fetch('/api/biomarkers.json').then(r => r.json()),
-          fetch('/api/results.json').then(r => r.json()),
+          fetch('/api/biomarkers.json').then(result => result.json()),
+          fetch('/api/results.json').then(result => result.json()),
         ]);
 
-        const biomarkerMap = new Map(biomarkers.map(b => [b.id, b]));
+        const biomarkerMap = new Map(biomarkers.map(biomarker => [biomarker.id, biomarker]));
 
         setState({
           data: results
-            .map(r => ({ ...r, biomarker: biomarkerMap.get(r.biomarkerId)! }))
-            .filter(r => r.biomarker),
+            .map(result => ({ ...result, biomarker: biomarkerMap.get(result.biomarkerId)! }))
+            .filter(result => result.biomarker),
           categories: [...new Set(biomarkers.map(b => b.category))].sort(),
           isLoading: false,
           error: null,

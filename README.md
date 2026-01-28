@@ -2,6 +2,14 @@
 
 A React + TypeScript application for viewing and exploring biomarker test results.
 
+## Demo Videos
+
+**UI Overview**
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/6a23035549bd4d67be9cf4f6508b8687" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+**Code Review**
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/77ebbe9dae39459fa65a49da30a4d6db" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
 ## Setup
 
 ```bash
