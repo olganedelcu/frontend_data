@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import type { EnrichedResult } from '../types/enrichedResult';
-import type { SortField, SortDirection } from '../components/Toolbar';
+import type { SortField, SortDirection } from '../types/toolbar';
 import type { Status } from '../types/result';
 
 interface FilterOptions {
@@ -11,7 +11,7 @@ interface FilterOptions {
   sortDirection: SortDirection;
 }
 
-const statusOrder = { low: 0, normal: 1, high: 2 };
+const statusOrder: Record<Status, number> = { low: 0, normal: 1, high: 2 };
 
 export function useFilteredResults({
   data,
@@ -32,19 +32,19 @@ export function useFilteredResults({
     }
 
     return [...filtered].sort((a, b) => {
-      let comparisonResult = 0;
+      let cmp = 0;
 
       if (sortField === 'name') {
-        comparisonResult = a.biomarker.name.localeCompare(b.biomarker.name);
+        cmp = a.biomarker.name.localeCompare(b.biomarker.name);
       } else if (sortField === 'value') {
-        comparisonResult = a.value - b.value;
+        cmp = a.value - b.value;
       } else if (sortField === 'status') {
-        comparisonResult = statusOrder[a.status] - statusOrder[b.status];
+        cmp = statusOrder[a.status] - statusOrder[b.status];
       } else if (sortField === 'sampledAt') {
-        comparisonResult = new Date(a.sampledAt).getTime() - new Date(b.sampledAt).getTime();
+        cmp = new Date(a.sampledAt).getTime() - new Date(b.sampledAt).getTime();
       }
 
-      return sortDirection === 'asc' ? comparisonResult : -comparisonResult;
+      return sortDirection === 'asc' ? cmp : -cmp;
     });
   }, [data, category, status, sortField, sortDirection]);
 }

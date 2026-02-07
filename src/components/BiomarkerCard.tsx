@@ -1,19 +1,14 @@
 import type { EnrichedResult } from '../types/enrichedResult';
+import { STATUS_CONFIG } from '../utils/status';
 
-interface BiomarkerCardProps {
+interface Props {
   result: EnrichedResult;
   onClick: () => void;
 }
 
-const statusConfig = {
-  normal: { dot: 'bg-emerald-400', text: 'text-emerald-600', label: 'Normal' },
-  high: { dot: 'bg-red-400', text: 'text-red-600', label: 'High' },
-  low: { dot: 'bg-blue-400', text: 'text-blue-600', label: 'Low' },
-};
-
-export function BiomarkerCard({ result, onClick }: BiomarkerCardProps) {
+export function BiomarkerCard({ result, onClick }: Props) {
   const { biomarker, value, status } = result;
-  const config = statusConfig[status];
+  const { dot, text, label } = STATUS_CONFIG[status];
 
   return (
     <button
@@ -24,9 +19,9 @@ export function BiomarkerCard({ result, onClick }: BiomarkerCardProps) {
         <h3 className="font-medium text-gray-900 text-[15px] group-hover:text-gray-700">
           {biomarker.name}
         </h3>
-        <div className={`flex items-center gap-1.5 ${config.text}`}>
-          <span className={`w-2 h-2 rounded-full ${config.dot}`} />
-          <span className="text-xs font-medium">{config.label}</span>
+        <div className={`flex items-center gap-1.5 ${text}`}>
+          <span className={`w-2 h-2 rounded-full ${dot}`} />
+          <span className="text-xs font-medium">{label}</span>
         </div>
       </div>
 
