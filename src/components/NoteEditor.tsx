@@ -24,9 +24,9 @@ export function NoteEditor({ resultId, initialValue, onSave }: Props) {
   return (
     <div>
       <div className="flex justify-between items-center mb-2">
-        <label className="text-sm font-medium text-gray-700">Notes</label>
+        <label className="text-xs text-gray-400">Notes</label>
         {status !== 'idle' && (
-          <span className={`text-xs ${status === 'saving' ? 'text-gray-400' : 'text-green-600'}`}>
+          <span className={`text-xs ${status === 'saving' ? 'text-gray-300' : 'text-emerald-500'}`}>
             {status === 'saving' ? 'Saving...' : 'Saved'}
           </span>
         )}
@@ -34,9 +34,9 @@ export function NoteEditor({ resultId, initialValue, onSave }: Props) {
       <textarea
         value={value}
         onChange={e => handleChange(e.target.value)}
-        placeholder="Add notes..."
+        placeholder="Add notes about this result..."
         rows={3}
-        className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm resize-none"
+        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent placeholder:text-gray-300"
       />
     </div>
   );

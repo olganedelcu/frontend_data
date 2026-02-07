@@ -4,52 +4,59 @@ export type SortField = 'name' | 'value' | 'status' | 'sampledAt';
 export type SortDirection = 'asc' | 'desc';
 
 interface Props {
-  categories: string[];
-  selectedCategory: string;
-  onCategoryChange: (category: string) => void;
   selectedStatus: Status | 'all';
   onStatusChange: (status: Status | 'all') => void;
   sortField: SortField;
   onSortFieldChange: (field: SortField) => void;
   sortDirection: SortDirection;
   onDirectionToggle: () => void;
+  resultCount: number;
 }
 
-export function Toolbar({ categories, selectedCategory, onCategoryChange, selectedStatus, onStatusChange, sortField, onSortFieldChange, sortDirection, onDirectionToggle }: Props) {
+export function Toolbar({ selectedStatus, onStatusChange, sortField, onSortFieldChange, sortDirection, onDirectionToggle, resultCount }: Props) {
   return (
-    <div className="flex flex-wrap gap-4 p-4 bg-white rounded-xl mb-4">
-      <div className="flex flex-col gap-1">
-        <label className="text-sm text-gray-600">Category</label>
-        <select value={selectedCategory} onChange={e => onCategoryChange(e.target.value)} className="px-3 py-2 rounded-lg border border-gray-200 text-sm">
-          <option value="all">All</option>
-          {categories.map(category => <option key={category} value={category}>{category}</option>)}
-        </select>
-      </div>
+    <div className="flex items-center justify-between mb-6">
+      <p className="text-sm text-gray-400">
+        {resultCount} result{resultCount !== 1 ? 's' : ''}
+      </p>
 
-      <div className="flex flex-col gap-1">
-        <label className="text-sm text-gray-600">Status</label>
-        <select value={selectedStatus} onChange={e => onStatusChange(e.target.value as Status | 'all')} className="px-3 py-2 rounded-lg border border-gray-200 text-sm">
-          <option value="all">All</option>
-          <option value="low">Low</option>
-          <option value="normal">Normal</option>
-          <option value="high">High</option>
-        </select>
-      </div>
+      <div className="flex items-center gap-2">
+        {/* Status filter pills */}
+        <div className="flex items-center bg-gray-100 rounded-lg p-0.5">
+          {(['all', 'normal', 'low', 'high'] as const).map(s => (
+            <button
+              key={s}
+              onClick={() => onStatusChange(s)}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                selectedStatus === s
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {s === 'all' ? 'All' : s.charAt(0).toUpperCase() + s.slice(1)}
+            </button>
+          ))}
+        </div>
 
-      <div className="flex flex-col gap-1">
-        <label className="text-sm text-gray-600">Sort by</label>
-        <select value={sortField} onChange={e => onSortFieldChange(e.target.value as SortField)} className="px-3 py-2 rounded-lg border border-gray-200 text-sm">
-          <option value="name">Name</option>
-          <option value="value">Value</option>
-          <option value="status">Status</option>
-          <option value="sampledAt">Date</option>
-        </select>
-      </div>
-
-      <div className="flex items-end">
-        <button onClick={onDirectionToggle} className="px-3 py-2 rounded-lg border border-gray-200 text-sm hover:bg-gray-50">
-          {sortDirection === 'asc' ? '↑ Asc' : '↓ Desc'}
-        </button>
+        {/* Sort */}
+        <div className="flex items-center gap-1 ml-2">
+          <select
+            value={sortField}
+            onChange={e => onSortFieldChange(e.target.value as SortField)}
+            className="px-2 py-1.5 rounded-lg border border-gray-200 text-xs text-gray-600 bg-white"
+          >
+            <option value="name">Name</option>
+            <option value="value">Value</option>
+            <option value="status">Status</option>
+            <option value="sampledAt">Date</option>
+          </select>
+          <button
+            onClick={onDirectionToggle}
+            className="p-1.5 rounded-lg border border-gray-200 text-xs text-gray-500 hover:bg-gray-50"
+          >
+            {sortDirection === 'asc' ? '↑' : '↓'}
+          </button>
+        </div>
       </div>
     </div>
   );

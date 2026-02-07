@@ -1,9 +1,9 @@
 export function LoadingScreen() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="text-center">
-        <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-gray-500">Loading...</p>
+    <div className="min-h-screen bg-[#fafafa] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-gray-200 border-t-gray-600 rounded-full animate-spin" />
+        <p className="text-sm text-gray-400">Loading your results...</p>
       </div>
     </div>
   );
