@@ -1,31 +1,52 @@
 import type { EnrichedResult } from '../types/enrichedResult';
-import type { EnergyScoreResult, Grade, GradeLabel } from '../types/energyScore';
+import type { EnergyScoreResult } from '../types/energyScore';
+import { getDeviation } from './status';
 
-function getGrade(score: number): { grade: Grade; label: GradeLabel } {
-  if (score >= 90) return { grade: 'A', label: 'EXCELLENT' };
-  if (score >= 75) return { grade: 'B', label: 'GOOD' };
-  if (score >= 60) return { grade: 'C', label: 'FAIR' };
-  if (score >= 40) return { grade: 'D', label: 'POOR' };
-  return { grade: 'F', label: 'CRITICAL' };
+function getLabel(score: number): string {
+  if (score >= 85) return 'Looking great';
+  if (score >= 70) return 'On track';
+  if (score >= 50) return 'Some areas to watch';
+  if (score >= 30) return 'Some results need attention';
+  return 'Several results need attention';
+}
+
+/** Keep only the most recent result per biomarker. */
+export function dedupeByLatest(results: EnrichedResult[]): EnrichedResult[] {
+  const latest = new Map<string, EnrichedResult>();
+  for (const r of results) {
+    const existing = latest.get(r.biomarkerId);
+    if (!existing || r.sampledAt > existing.sampledAt) {
+      latest.set(r.biomarkerId, r);
+    }
+  }
+  return [...latest.values()];
+}
+
+/**
+ * Gradient scoring per result:
+ * - Inside range: 80–100 (closer to midpoint = higher)
+ * - Outside range: linear falloff from 80 → 0
+ */
+function scoreResult(r: EnrichedResult): number {
+  const deviation = getDeviation(r);
+  if (deviation <= 1) return Math.round(100 - deviation * 20);
+  const overshoot = deviation - 1;
+  return Math.round(Math.max(0, 80 - overshoot * 40));
 }
 
 export function calculateEnergyScore(results: EnrichedResult[]): EnergyScoreResult {
-  if (results.length === 0) {
-    return { score: 0, grade: 'F', label: 'CRITICAL' };
-  }
+  if (results.length === 0) return { score: 0, label: 'No data' };
 
+  const latest = dedupeByLatest(results);
   let weightedSum = 0;
   let totalImportance = 0;
 
-  for (const result of results) {
-    const statusScore = result.status === 'normal' ? 100 : 0;
-    const importance = result.biomarker.importance;
-    weightedSum += statusScore * importance;
+  for (const r of latest) {
+    const importance = r.biomarker.importance;
+    weightedSum += scoreResult(r) * importance;
     totalImportance += importance;
   }
 
   const score = totalImportance > 0 ? Math.round(weightedSum / totalImportance) : 0;
-  const { grade, label } = getGrade(score);
-
-  return { score, grade, label };
+  return { score, label: getLabel(score) };
 }

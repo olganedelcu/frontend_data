@@ -1,17 +1,28 @@
 import { useEffect, useState } from 'react';
 import type { EnergyScoreResult } from '../types/energyScore';
 
-interface EnergyScoreGaugeProps {
+interface Props {
   energyScore: EnergyScoreResult;
 }
 
-export function EnergyScoreGauge({ energyScore }: EnergyScoreGaugeProps) {
-  const { score, grade, label } = energyScore;
+function getColor(score: number): string {
+  if (score >= 75) return '#10B981';
+  if (score >= 40) return '#F59E0B';
+  return '#F59E0B'; // amber, not red — even for low scores
+}
+
+const SIZE = 140;
+const STROKE = 10;
+const RADIUS = (SIZE - STROKE) / 2;
+const CENTER = SIZE / 2;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+
+export function EnergyScoreGauge({ energyScore }: Props) {
+  const { score, label } = energyScore;
   const [animatedScore, setAnimatedScore] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Use requestAnimationFrame to avoid synchronous setState in effect
     const raf = requestAnimationFrame(() => setIsVisible(true));
     const duration = 1200;
     const steps = 60;
@@ -32,74 +43,41 @@ export function EnergyScoreGauge({ energyScore }: EnergyScoreGaugeProps) {
     };
   }, [score]);
 
-  // Ring dimensions
-  const size = 160;
-  const strokeWidth = 10;
-  const radius = (size - strokeWidth) / 2;
-  const center = size / 2;
-  const circumference = 2 * Math.PI * radius;
-
-  // Progress arc
   const displayScore = isVisible ? animatedScore : 0;
-  const progress = (displayScore / 100) * circumference;
-
-  // Color based on score
-  const getColor = () => {
-    if (score >= 75) return '#10B981';
-    if (score >= 40) return '#F59E0B';
-    return '#EF4444';
-  };
+  const progress = (displayScore / 100) * CIRCUMFERENCE;
+  const color = getColor(score);
 
   return (
     <div className="flex flex-col items-center">
       <div className="relative">
-        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-          {/* Background ring */}
+        <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
           <circle
-            cx={center}
-            cy={center}
-            r={radius}
-            fill="none"
-            stroke="#f3f4f6"
-            strokeWidth={strokeWidth}
+            cx={CENTER} cy={CENTER} r={RADIUS}
+            fill="none" stroke="#f3f4f6" strokeWidth={STROKE}
           />
-          {/* Progress ring */}
           <circle
-            cx={center}
-            cy={center}
-            r={radius}
-            fill="none"
-            stroke={getColor()}
-            strokeWidth={strokeWidth}
-            strokeDasharray={`${progress} ${circumference}`}
+            cx={CENTER} cy={CENTER} r={RADIUS}
+            fill="none" stroke={color} strokeWidth={STROKE}
+            strokeDasharray={`${progress} ${CIRCUMFERENCE}`}
             strokeLinecap="round"
-            transform={`rotate(-90 ${center} ${center})`}
+            transform={`rotate(-90 ${CENTER} ${CENTER})`}
             className="transition-all duration-100 ease-out"
-            opacity={0.8}
+            opacity={0.7}
           />
         </svg>
-        {/* Center text */}
         <div
           className="absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-500"
           style={{ opacity: isVisible ? 1 : 0 }}
         >
-          <span className="text-4xl font-bold text-gray-800">{animatedScore}</span>
-          <span className="text-xs font-medium text-gray-400 mt-0.5">/ 100</span>
+          <span className="text-3xl font-bold text-gray-800">{animatedScore}</span>
         </div>
       </div>
-      <div
-        className="text-center mt-3 transition-opacity duration-700"
+      <p
+        className="text-sm text-gray-500 mt-2 transition-opacity duration-700"
         style={{ opacity: isVisible ? 1 : 0 }}
       >
-        <span
-          className="text-sm font-semibold tracking-wide"
-          style={{ color: getColor() }}
-        >
-          {label}
-        </span>
-        <span className="text-sm text-gray-300 mx-1.5">·</span>
-        <span className="text-sm text-gray-400">Grade {grade}</span>
-      </div>
+        {label}
+      </p>
     </div>
   );
 }

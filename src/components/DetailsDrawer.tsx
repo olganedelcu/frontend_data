@@ -14,7 +14,7 @@ interface Props {
 export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
   if (!result) return null;
 
-  const { biomarker, value, status, sampledAt } = result;
+  const { biomarker, value, sampledAt } = result;
   const { name, category, standardUnit, referenceRange } = biomarker;
   const date = new Date(sampledAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -49,7 +49,7 @@ export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
                   <span className="text-base font-normal text-gray-400 ml-1">{standardUnit}</span>
                 </p>
               </div>
-              <StatusBadge status={status} />
+              <StatusBadge result={result} />
             </div>
 
             {/* Range visualization - now in the drawer */}

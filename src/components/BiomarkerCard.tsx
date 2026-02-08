@@ -1,5 +1,5 @@
 import type { EnrichedResult } from '../types/enrichedResult';
-import { STATUS_CONFIG } from '../utils/status';
+import { getSeverity, getSeverityStyle, getStatusLabel } from '../utils/status';
 
 interface Props {
   result: EnrichedResult;
@@ -8,7 +8,9 @@ interface Props {
 
 export function BiomarkerCard({ result, onClick }: Props) {
   const { biomarker, value, status } = result;
-  const { dot, text, label } = STATUS_CONFIG[status];
+  const severity = getSeverity(result);
+  const style = getSeverityStyle(severity);
+  const label = getStatusLabel(status, severity);
 
   return (
     <button
@@ -19,8 +21,8 @@ export function BiomarkerCard({ result, onClick }: Props) {
         <h3 className="font-medium text-gray-900 text-[15px] group-hover:text-gray-700">
           {biomarker.name}
         </h3>
-        <div className={`flex items-center gap-1.5 ${text}`}>
-          <span className={`w-2 h-2 rounded-full ${dot}`} />
+        <div className={`flex items-center gap-1.5 ${style.text}`}>
+          <span className={`w-2 h-2 rounded-full ${style.dot}`} />
           <span className="text-xs font-medium">{label}</span>
         </div>
       </div>
