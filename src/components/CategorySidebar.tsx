@@ -22,21 +22,23 @@ const categoryIcons: Record<string, string> = {
 };
 
 export function CategorySidebar({ categories, data, selectedCategory, onCategoryChange }: Props) {
-  const categoryCounts = useMemo(() => {
+  const { categoryCounts, totalAttention } = useMemo(() => {
     const counts: Record<string, { total: number; attention: number }> = {};
+    let attention = 0;
     for (const r of data) {
       const cat = r.biomarker.category;
       if (!counts[cat]) counts[cat] = { total: 0, attention: 0 };
       counts[cat].total++;
-      if (r.status !== 'normal') counts[cat].attention++;
+      if (r.status !== 'normal') {
+        counts[cat].attention++;
+        attention++;
+      }
     }
-    return counts;
+    return { categoryCounts: counts, totalAttention: attention };
   }, [data]);
 
-  const totalAttention = useMemo(() => data.filter(r => r.status !== 'normal').length, [data]);
-
   return (
-    <nav className="w-56 flex-shrink-0">
+    <nav className="w-56 shrink-0">
       <div className="sticky top-8">
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">
           Categories

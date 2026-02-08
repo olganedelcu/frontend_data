@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 
-// stores and recoveres values from localStorage
 export function useLocalStorage<T>(key: string, initialValue: T) {
   const [value, setValue] = useState(() => {
     const stored = localStorage.getItem(key);
@@ -15,7 +14,6 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
   return [value, save] as const;
 }
 
-// manages stored notes by id(like a diccionario)
 export function useNotes() {
   const [notes, setNotes] = useLocalStorage<Record<string, string>>('biomarker-notes', {});
 

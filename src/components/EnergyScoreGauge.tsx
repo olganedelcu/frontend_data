@@ -6,9 +6,7 @@ interface Props {
 }
 
 function getColor(score: number): string {
-  if (score >= 75) return '#10B981';
-  if (score >= 40) return '#F59E0B';
-  return '#F59E0B'; // amber, not red — even for low scores
+  return score >= 75 ? '#10B981' : '#F59E0B';
 }
 
 const SIZE = 140;
@@ -18,7 +16,7 @@ const CENTER = SIZE / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 export function EnergyScoreGauge({ energyScore }: Props) {
-  const { score, label } = energyScore;
+  const { score } = energyScore;
   const [animatedScore, setAnimatedScore] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -43,8 +41,7 @@ export function EnergyScoreGauge({ energyScore }: Props) {
     };
   }, [score]);
 
-  const displayScore = isVisible ? animatedScore : 0;
-  const progress = (displayScore / 100) * CIRCUMFERENCE;
+  const progress = ((isVisible ? animatedScore : 0) / 100) * CIRCUMFERENCE;
   const color = getColor(score);
 
   return (
@@ -72,12 +69,6 @@ export function EnergyScoreGauge({ energyScore }: Props) {
           <span className="text-3xl font-bold text-gray-800">{animatedScore}</span>
         </div>
       </div>
-      <p
-        className="text-sm text-gray-500 mt-2 transition-opacity duration-700"
-        style={{ opacity: isVisible ? 1 : 0 }}
-      >
-        {label}
-      </p>
     </div>
   );
 }

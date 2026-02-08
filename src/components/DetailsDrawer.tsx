@@ -23,7 +23,6 @@ export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
       <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" onClick={onClose} />
 
       <div className="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl z-50 overflow-y-auto rounded-l-3xl">
-        {/* Header */}
         <div className="sticky top-0 bg-white/80 backdrop-blur-md px-6 pt-6 pb-4 border-b border-gray-100">
           <div className="flex justify-between items-start">
             <div>
@@ -39,7 +38,6 @@ export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
         </div>
 
         <div className="px-6 py-6 space-y-6">
-          {/* Result value card */}
           <div className="bg-gray-50 rounded-2xl p-5">
             <div className="flex justify-between items-center mb-4">
               <div>
@@ -51,34 +49,19 @@ export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
               </div>
               <StatusBadge result={result} />
             </div>
-
-            {/* Range visualization - now in the drawer */}
-            <RangeBar
-              value={value}
-              referenceRange={referenceRange}
-              unit={standardUnit}
-            />
+            <RangeBar value={value} referenceRange={referenceRange} unit={standardUnit} />
           </div>
 
-          {/* Details */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gray-50 rounded-xl p-4">
-              <p className="text-xs text-gray-400 mb-1">Reference Range</p>
-              <p className="text-sm font-medium text-gray-900">{referenceRange.low}–{referenceRange.high} {standardUnit}</p>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-4">
-              <p className="text-xs text-gray-400 mb-1">Sampled</p>
-              <p className="text-sm font-medium text-gray-900">{date}</p>
-            </div>
+          <div className="bg-gray-50 rounded-xl p-4">
+            <p className="text-xs text-gray-400 mb-1">Sampled</p>
+            <p className="text-sm font-medium text-gray-900">{date}</p>
           </div>
 
-          {/* Interpretation */}
           <div>
             <p className="text-xs text-gray-400 mb-2">Interpretation</p>
             <p className="text-sm text-gray-600 leading-relaxed">{getInterpretation(result)}</p>
           </div>
 
-          {/* Notes */}
           <NoteEditor key={result.id} resultId={result.id} initialValue={note} onSave={onSaveNote} />
         </div>
       </div>

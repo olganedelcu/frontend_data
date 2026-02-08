@@ -7,7 +7,6 @@ interface StatusStyle {
   dot: string;
   text: string;
   bg: string;
-  label: string;
 }
 
 /** How far the value is from the reference range midpoint, normalized by half-span. */
@@ -22,26 +21,23 @@ export function getDeviation(r: EnrichedResult): number {
 /** Severity based on how far from range — not just in/out. */
 export function getSeverity(r: EnrichedResult): Severity {
   if (r.status === 'normal') return 'normal';
-  const deviation = getDeviation(r);
-  // > 1.5x half-span from midpoint = severe (meaningfully outside range)
-  return deviation > 1.8 ? 'severe' : 'mild';
+  return getDeviation(r) > 1.8 ? 'severe' : 'mild';
 }
 
 const SEVERITY_STYLES: Record<Severity, StatusStyle> = {
-  normal: { dot: 'bg-emerald-400', text: 'text-emerald-600', bg: 'bg-emerald-50', label: 'Normal' },
-  mild:   { dot: 'bg-amber-400',   text: 'text-amber-600',   bg: 'bg-amber-50',   label: 'Slightly off' },
-  severe: { dot: 'bg-red-400',     text: 'text-red-600',     bg: 'bg-red-50',     label: 'Out of range' },
+  normal: { dot: 'bg-emerald-400', text: 'text-emerald-600', bg: 'bg-emerald-50' },
+  mild:   { dot: 'bg-amber-400',   text: 'text-amber-600',   bg: 'bg-amber-50' },
+  severe: { dot: 'bg-red-400',     text: 'text-red-600',     bg: 'bg-red-50' },
 };
 
-/** Get display label for a status+severity. */
+export function getSeverityStyle(severity: Severity): StatusStyle {
+  return SEVERITY_STYLES[severity];
+}
+
 export function getStatusLabel(status: Status, severity: Severity): string {
   if (severity === 'normal') return 'Normal';
   if (severity === 'mild') return status === 'high' ? 'Slightly high' : 'Slightly low';
   return status === 'high' ? 'High' : 'Low';
-}
-
-export function getSeverityStyle(severity: Severity): StatusStyle {
-  return SEVERITY_STYLES[severity];
 }
 
 export function capitalize(s: string): string {
