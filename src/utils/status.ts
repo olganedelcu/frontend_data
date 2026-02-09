@@ -1,7 +1,7 @@
 import type { Status } from '../types/result';
 import type { EnrichedResult } from '../types/enrichedResult';
 
-export type Severity = 'normal' | 'mild' | 'severe';
+type Severity = 'normal' | 'mild' | 'severe';
 
 interface StatusStyle {
   dot: string;
@@ -18,8 +18,7 @@ export function getDeviation(r: EnrichedResult): number {
   return Math.abs(r.value - mid) / halfSpan;
 }
 
-/** Severity based on how far from range — not just in/out. */
-export function getSeverity(r: EnrichedResult): Severity {
+function getSeverity(r: EnrichedResult): Severity {
   if (r.status === 'normal') return 'normal';
   return getDeviation(r) > 1.8 ? 'severe' : 'mild';
 }
@@ -30,12 +29,24 @@ const SEVERITY_STYLES: Record<Severity, StatusStyle> = {
   severe: { dot: 'bg-red-400',     text: 'text-red-600',     bg: 'bg-red-50' },
 };
 
-export function getSeverityStyle(severity: Severity): StatusStyle {
-  return SEVERITY_STYLES[severity];
-}
-
-export function getStatusLabel(status: Status, severity: Severity): string {
+function getStatusLabel(status: Status, severity: Severity): string {
   if (severity === 'normal') return 'In range';
   if (severity === 'mild') return status === 'high' ? 'Slightly above optimal' : 'Slightly below optimal';
   return status === 'high' ? 'Above optimal range' : 'Below optimal range';
+}
+
+export interface ResultDisplay {
+  severity: Severity;
+  style: StatusStyle;
+  label: string;
+}
+
+/** Single call replaces getSeverity + getSeverityStyle + getStatusLabel. */
+export function getResultDisplay(r: EnrichedResult): ResultDisplay {
+  const severity = getSeverity(r);
+  return {
+    severity,
+    style: SEVERITY_STYLES[severity],
+    label: getStatusLabel(r.status, severity),
+  };
 }

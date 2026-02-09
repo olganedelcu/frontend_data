@@ -1,8 +1,9 @@
 import type { EnrichedResult } from '../types/enrichedResult';
-import { StatusBadge } from './StatusBadge';
+import { getResultDisplay } from '../utils/status';
 import { RangeBar } from './RangeBar';
 import { NoteEditor } from './NoteEditor';
 import { getInterpretation } from '../utils/interpretation';
+import { formatDate } from '../utils/format';
 
 interface Props {
   result: EnrichedResult | null;
@@ -16,7 +17,8 @@ export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
 
   const { biomarker, value, sampledAt } = result;
   const { name, category, standardUnit, referenceRange } = biomarker;
-  const date = new Date(sampledAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const { style, label } = getResultDisplay(result);
+  const date = formatDate(sampledAt);
 
   return (
     <>
@@ -47,7 +49,9 @@ export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
                   <span className="text-base font-normal text-gray-400 ml-1">{standardUnit}</span>
                 </p>
               </div>
-              <StatusBadge result={result} />
+              <span className={`px-2.5 py-1 rounded-lg text-xs font-medium ${style.bg} ${style.text}`}>
+                {label}
+              </span>
             </div>
             <RangeBar value={value} referenceRange={referenceRange} unit={standardUnit} />
           </div>

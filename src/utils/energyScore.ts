@@ -1,6 +1,10 @@
 import type { EnrichedResult } from '../types/enrichedResult';
-import type { EnergyScoreResult } from '../types/energyScore';
 import { getDeviation } from './status';
+
+export interface EnergyScoreResult {
+  score: number;
+  label: string;
+}
 
 function getLabel(score: number): string {
   if (score >= 85) return 'You\'re doing great';

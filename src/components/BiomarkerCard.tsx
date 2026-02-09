@@ -1,5 +1,5 @@
 import type { EnrichedResult } from '../types/enrichedResult';
-import { getSeverity, getSeverityStyle, getStatusLabel } from '../utils/status';
+import { getResultDisplay } from '../utils/status';
 
 interface Props {
   result: EnrichedResult;
@@ -7,10 +7,8 @@ interface Props {
 }
 
 export function BiomarkerCard({ result, onClick }: Props) {
-  const { biomarker, value, status } = result;
-  const severity = getSeverity(result);
-  const style = getSeverityStyle(severity);
-  const label = getStatusLabel(status, severity);
+  const { biomarker, value } = result;
+  const { style, label } = getResultDisplay(result);
 
   return (
     <button

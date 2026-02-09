@@ -1,5 +1,4 @@
-import type { Status } from '../types/result';
-import type { SortField, SortDirection } from '../types/toolbar';
+import type { ToolbarProps, SortField } from '../hooks/useResultFilters';
 
 const STATUS_LABELS: Record<string, string> = {
   all: 'All',
@@ -17,17 +16,7 @@ const SORT_OPTIONS: { value: SortField; label: string }[] = [
   { value: 'sampledAt', label: 'Date' },
 ];
 
-interface Props {
-  selectedStatus: Status | 'all';
-  onStatusChange: (status: Status | 'all') => void;
-  sortField: SortField;
-  onSortFieldChange: (field: SortField) => void;
-  sortDirection: SortDirection;
-  onDirectionToggle: () => void;
-  resultCount: number;
-}
-
-export function Toolbar({ selectedStatus, onStatusChange, sortField, onSortFieldChange, sortDirection, onDirectionToggle, resultCount }: Props) {
+export function Toolbar({ selectedStatus, onStatusChange, sortField, onSortFieldChange, sortDirection, onDirectionToggle, resultCount }: ToolbarProps) {
   return (
     <div className="flex items-center justify-between mb-6">
       <p className="text-sm text-gray-400">

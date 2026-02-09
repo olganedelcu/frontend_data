@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { EnergyScoreResult } from '../types/energyScore';
+import type { EnergyScoreResult } from '../utils/energyScore';
 
 interface Props {
   energyScore: EnergyScoreResult;
