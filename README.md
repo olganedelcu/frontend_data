@@ -63,13 +63,13 @@ src/
 
 ## Key Decisions
 
-- **`getResultDisplay()`** — single function replaces three separate calls (`getSeverity` + `getSeverityStyle` + `getStatusLabel`). Every component that shows status uses this one entry point.
-- **Stateful filter hook** — `useResultFilters` manages its own state and returns a `toolbarProps` object. Page spreads it onto `<Toolbar />` without knowing about sort/filter types.
-- **`useDashboard` for derived data** — all `useMemo` computations (score, priority, stats, date) live in one hook. Page stays thin: state + layout only.
-- **Progressive disclosure** — cards show value and label. Range bars, interpretation, and notes are in the drawer.
-- **No grades or binary scoring** — score uses gradient calculation (partial credit for values near range boundaries) instead of pass/fail.
-- **Coaching tips by category** — `coachingTips.ts` maps category + direction (high/low) to a one-sentence explanation. Avoids hardcoding 30 per-biomarker strings.
-- **Deduplication before scoring** — `dedupeByLatest()` keeps one result per biomarker. Without this, historical samples inflate the "out of range" count.
+- **`getResultDisplay()`** - single function replaces three separate calls (`getSeverity` + `getSeverityStyle` + `getStatusLabel`). Every component that shows status uses this one entry point.
+- **Stateful filter hook** - `useResultFilters` manages its own state and returns a `toolbarProps` object. Page spreads it onto `<Toolbar />` without knowing about sort/filter types.
+- **`useDashboard` for derived data** - all `useMemo` computations (score, priority, stats, date) live in one hook. Page stays thin: state + layout only.
+- **Progressive disclosure** - cards show value and label. Range bars, interpretation, and notes are in the drawer.
+- **No grades or binary scoring** - score uses gradient calculation (partial credit for values near range boundaries) instead of pass/fail.
+- **Coaching tips by category** - `coachingTips.ts` maps category + direction (high/low) to a one-sentence explanation. Avoids hardcoding 30 per-biomarker strings.
+- **Deduplication before scoring** - `dedupeByLatest()` keeps one result per biomarker. Without this, historical samples inflate the "out of range" count.
 
 ## Trade-offs
 
