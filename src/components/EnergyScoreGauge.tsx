@@ -5,10 +5,7 @@ interface Props {
   energyScore: EnergyScoreResult;
 }
 
-function getColor(score: number): string {
-  return score >= 75 ? '#10B981' : '#F59E0B';
-}
-
+const COLOR = '#10B981';
 const SIZE = 140;
 const STROKE = 10;
 const RADIUS = (SIZE - STROKE) / 2;
@@ -42,7 +39,6 @@ export function EnergyScoreGauge({ energyScore }: Props) {
   }, [score]);
 
   const progress = ((isVisible ? animatedScore : 0) / 100) * CIRCUMFERENCE;
-  const color = getColor(score);
 
   return (
     <div className="flex flex-col items-center">
@@ -50,16 +46,15 @@ export function EnergyScoreGauge({ energyScore }: Props) {
         <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
           <circle
             cx={CENTER} cy={CENTER} r={RADIUS}
-            fill="none" stroke="#f3f4f6" strokeWidth={STROKE}
+            fill="none" stroke={COLOR} strokeWidth={STROKE} opacity={0.12}
           />
           <circle
             cx={CENTER} cy={CENTER} r={RADIUS}
-            fill="none" stroke={color} strokeWidth={STROKE}
+            fill="none" stroke={COLOR} strokeWidth={STROKE}
             strokeDasharray={`${progress} ${CIRCUMFERENCE}`}
             strokeLinecap="round"
             transform={`rotate(-90 ${CENTER} ${CENTER})`}
             className="transition-all duration-100 ease-out"
-            opacity={0.7}
           />
         </svg>
         <div

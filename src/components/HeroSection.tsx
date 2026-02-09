@@ -3,6 +3,7 @@ import type { EnergyScoreResult } from '../utils/energyScore';
 import { EnergyScoreGauge } from './EnergyScoreGauge';
 import { getResultDisplay } from '../utils/status';
 import { getCoachingTip } from '../utils/coachingTips';
+import { SeverityIndicator } from './SeverityIndicator';
 
 interface Props {
   energyScore: EnergyScoreResult;
@@ -60,7 +61,7 @@ export function HeroSection({ energyScore, stats, priorityItems, onSelectResult,
           <h3 className="text-sm font-medium text-gray-900 mb-3">Your top opportunities</h3>
           <div className="space-y-2">
             {priorityItems.map(r => {
-              const { style, label } = getResultDisplay(r);
+              const display = getResultDisplay(r);
               return (
                 <button
                   key={r.id}
@@ -68,7 +69,7 @@ export function HeroSection({ energyScore, stats, priorityItems, onSelectResult,
                   className="w-full flex items-center justify-between bg-white rounded-xl border border-gray-100 px-5 py-3.5 hover:border-gray-200 hover:shadow-sm transition-all text-left cursor-pointer"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className={`w-2 h-2 rounded-full shrink-0 ${style.dot}`} />
+                    <SeverityIndicator display={display} />
                     <div className="min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">{r.biomarker.name}</p>
                       <p className="text-xs text-gray-400">
@@ -79,7 +80,7 @@ export function HeroSection({ energyScore, stats, priorityItems, onSelectResult,
                       <p className="text-xs text-gray-500 mt-0.5">{getCoachingTip(r)}</p>
                     </div>
                   </div>
-                  <span className={`text-xs font-medium shrink-0 ml-4 ${style.text}`}>{label}</span>
+                  <span className={`text-xs font-medium shrink-0 ml-4 ${display.style.text}`}>{display.label}</span>
                 </button>
               );
             })}

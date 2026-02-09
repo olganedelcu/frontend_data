@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useBiomarkerData } from '../hooks/useBiomarkerData';
-import { useNotes } from '../hooks/useLocalStorage';
+import { useNotes } from '../hooks/useNotes';
 import { useDashboard } from '../hooks/useDashboard';
 import { useResultFilters } from '../hooks/useResultFilters';
 import { HeroSection } from '../components/HeroSection';
@@ -48,7 +48,7 @@ export function BiomarkerResultsPage() {
             <HeroSection
               energyScore={energyScore}
               stats={stats}
-              priorityItems={priorityItems}
+              priorityItems={selectedCategory === 'all' || selectedCategory === 'attention' ? priorityItems : []}
               onSelectResult={setSelectedResult}
               onViewAll={() => setSelectedCategory('all')}
             />

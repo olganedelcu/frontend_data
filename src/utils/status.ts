@@ -35,18 +35,25 @@ function getStatusLabel(status: Status, severity: Severity): string {
   return status === 'high' ? 'Above optimal range' : 'Below optimal range';
 }
 
+export type IndicatorIcon = 'dot' | 'arrow-up' | 'arrow-down';
+
 export interface ResultDisplay {
   severity: Severity;
   style: StatusStyle;
   label: string;
+  icon: IndicatorIcon;
 }
 
 /** Single call replaces getSeverity + getSeverityStyle + getStatusLabel. */
 export function getResultDisplay(r: EnrichedResult): ResultDisplay {
   const severity = getSeverity(r);
+  let icon: IndicatorIcon = 'dot';
+  if (severity === 'severe') icon = r.status === 'high' ? 'arrow-up' : 'arrow-down';
+
   return {
     severity,
     style: SEVERITY_STYLES[severity],
     label: getStatusLabel(r.status, severity),
+    icon,
   };
 }

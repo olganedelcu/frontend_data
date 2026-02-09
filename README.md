@@ -1,9 +1,7 @@
 # Biomarker Results UI
 
-A React + TypeScript application for viewing and exploring biomarker test results.
+React + TypeScript dashboard for viewing blood biomarker results.
 
-
-// Change the way we display the data to the user, UX design 
 ## Demo Videos
 
 **UI Overview**
@@ -20,71 +18,90 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173)
-Hoisted: [https://frontend-data-9eej.vercel.app/](https://frontend-data-9eej.vercel.app/)
+Hosted: [https://frontend-data-9eej.vercel.app/](https://frontend-data-9eej.vercel.app/)
 
 ## Features
 
-- Results table with name, value, status, reference range, category
-- Filter by category and status
-- Sort by name, value, status, or date (asc/desc)
-- Detail drawer with interpretation and notes
-- Autosave notes to localStorage (500ms debounce)
-- Loading, error, and empty states
+- Weighted energy score with gradient scoring per biomarker
+- Priority ranking by `importance * deviation from midpoint`
+- Three-tier severity system (normal / mild / severe)
+- Category sidebar with counts
+- Filter by status, sort by name/value/status/date
+- Detail drawer with range bar, interpretation, and user notes
+- Notes persisted to localStorage with debounce
+- Deduplication — latest sample per biomarker only
 
-## Key Decisions & Trade-offs
+## Project Structure
 
-### Architecture
-- **Page-based structure** - Pages in `/pages`, components in `/components`; designed with scalability in mind, easy to add routing as the app grows
-- **Custom hooks** - `useBiomarkerData` for data fetching, `useFilteredResults` for filtering/sorting logic, `useLocalStorage` for persisted state - keeps business logic out of components
-- **Tests** - Unit tests in `/utils/tests` using Vitest
-
-### State Management
-- **React useState** - No Redux/Zustand needed for this scale
-- **localStorage for notes** - Simple persistence, no backend required
-- **Derived state via useMemo** - Filtering/sorting computed from source data
-
-### Styling
-- **Tailwind CSS** - Utility-first, no custom CSS files to maintain
-- **Inline classes** - Co-located styling, easier to understand component appearance
-
-### Trade-offs Made
-| Decision | Benefit | Trade-off |
-|----------|---------|-----------|
-| No component library | Smaller bundle, full control | More manual styling |
-| localStorage | No backend needed | Data lost if cleared |
-| Simple fetch on mount | Simple data flow | No real-time updates |
-| Drawer instead of modal | Better for detailed content | Takes full screen height |
-| Desktop-first design | Optimized for primary use case | Requires work for mobile |
-
-## Mock API Setup
-
-To simulate real-world data fetching, I served the `biomarkers.json` and `results.json` files via the `/public/api` directory and fetched them through relative URLs. This mimics a REST API response without setting up a backend.
-
-```js
-fetch('/api/biomarkers.json') // acts like a GET /api/biomarkers; simulate real api call
+```
+src/
+├── pages/        Page composition
+├── components/   UI components
+├── hooks/        State and business logic
+├── utils/        Pure functions
+└── types/        TypeScript interfaces
 ```
 
-## AI Tools Used
+### Hooks
 
-Used Claude AI for:
-- Mocking data and testing 
-- TypeScript type definitions
-- Component refactoring and simplification
+| Hook | What it does |
+|------|-------------|
+| `useBiomarkerData` | Fetches and joins biomarker + result JSON |
+| `useDashboard` | Derives score, priority list, stats from raw data |
+| `useResultFilters` | Filter/sort state + filtered output + toolbar props |
+| `useNotes` | Read/write notes to localStorage |
 
-## What I'd Do Next
+### Utils
 
-With more time:
-- Add animations for drawer transitions
-- Show historical trends for biomarkers with multiple results
-- Add search and filter by name
-- Export results to PDF
-- Support dark mode
-- Set up a CI pipeline using GitHub Actions for automated testing and linting
-- Protect the main branch to ensure all changes go through pull requests and pass CI checks before merging
+| File | What it does |
+|------|-------------|
+| `status.ts` | `getResultDisplay()` — severity, style classes, label in one call |
+| `energyScore.ts` | Gradient scoring, deduplication |
+| `coachingTips.ts` | One-line context per category + direction |
+| `interpretation.ts` | Per-result text based on status |
+| `format.ts` | Date formatting |
 
-## Tech Stack
+## Key Decisions
 
-- React 19
-- TypeScript
-- Vite
-- Tailwind CSS 
+- **`getResultDisplay()`** — single function replaces three separate calls (`getSeverity` + `getSeverityStyle` + `getStatusLabel`). Every component that shows status uses this one entry point.
+- **Stateful filter hook** — `useResultFilters` manages its own state and returns a `toolbarProps` object. Page spreads it onto `<Toolbar />` without knowing about sort/filter types.
+- **`useDashboard` for derived data** — all `useMemo` computations (score, priority, stats, date) live in one hook. Page stays thin: state + layout only.
+- **Progressive disclosure** — cards show value and label. Range bars, interpretation, and notes are in the drawer.
+- **No grades or binary scoring** — score uses gradient calculation (partial credit for values near range boundaries) instead of pass/fail.
+- **Coaching tips by category** — `coachingTips.ts` maps category + direction (high/low) to a one-sentence explanation. Avoids hardcoding 30 per-biomarker strings.
+- **Deduplication before scoring** — `dedupeByLatest()` keeps one result per biomarker. Without this, historical samples inflate the "out of range" count.
+
+## Trade-offs
+
+| Decision | Upside | Downside |
+|----------|--------|----------|
+| No component library | Smaller bundle, full control | More manual work |
+| localStorage for notes | No backend needed | Lost if storage cleared |
+| Static JSON in `/public/api` | No server setup | No real-time data |
+| Desktop-first | Matches primary use case | Mobile needs work |
+| Drawer over modal | Scrollable detail view | Full viewport height |
+| `useResultFilters` owns state | Page doesn't import filter types | Sort/filter state resets on unmount |
+| `useDashboard` bundles derivations | Single hook, page stays ~80 lines | Hook has 5 `useMemo` calls internally |
+| Coaching tips per category, not per biomarker | 10 entries instead of 30, easy to maintain | Less specific per marker |
+| Gradient scoring (0–100 continuous) | Reflects how far from range, not just in/out | Harder to explain than pass/fail |
+
+## Mock API
+
+Static JSON served from `/public/api` to simulate REST endpoints.
+
+```js
+fetch('/api/biomarkers.json')
+fetch('/api/results.json')
+```
+
+## Next Steps
+
+- Trend charts for biomarkers with historical samples
+- Search by name
+- Mobile layout
+- Drawer transitions
+- CI with GitHub Actions
+
+## Stack
+
+React 19, TypeScript 5.9, Vite 7, Tailwind CSS 4, Vitest
