@@ -4,6 +4,7 @@ import { useNotes } from '../hooks/useLocalStorage';
 import { useFilteredResults } from '../hooks/useFilteredResults';
 import { calculateEnergyScore, dedupeByLatest } from '../utils/energyScore';
 import { getDeviation, getSeverity, getSeverityStyle, getStatusLabel } from '../utils/status';
+import { getCoachingTip } from '../utils/coachingTips';
 import { Toolbar } from '../components/Toolbar';
 import { DetailsDrawer } from '../components/DetailsDrawer';
 import { LoadingScreen } from '../components/LoadingScreen';
@@ -60,7 +61,7 @@ export function BiomarkerResultsPage() {
 
   const stats = useMemo(() => {
     const inRange = data.filter(r => r.status === 'normal').length;
-    return { inRange, needAttention: data.length - inRange };
+    return { inRange, improvable: data.length - inRange };
   }, [data]);
 
   const formattedDate = useMemo(() => {
@@ -80,7 +81,7 @@ export function BiomarkerResultsPage() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         <header className="flex items-center justify-between mb-10">
           <div>
-            <h1 className="text-xl font-semibold text-gray-900">Health Overview</h1>
+            <h1 className="text-xl font-semibold text-gray-900">Your Energy Report</h1>
             {formattedDate && (
               <p className="text-sm text-gray-400 mt-0.5">{formattedDate}</p>
             )}
@@ -105,19 +106,19 @@ export function BiomarkerResultsPage() {
                     {energyScore.label}
                   </h2>
                   <p className="text-sm text-gray-500 mt-2 leading-relaxed">
-                    Most results are only slightly outside the normal range. This view helps you focus on what matters first.
+                    Your results give you a snapshot of where you stand. Most values are close to optimal, and even small changes can make a difference.
                   </p>
 
                   {/* Summary chips */}
                   <div className="flex gap-3 mt-5">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 rounded-lg text-sm text-emerald-700 font-medium">
                       <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                      {stats.inRange} in range
+                      {stats.inRange} in optimal range
                     </span>
-                    {stats.needAttention > 0 && (
+                    {stats.improvable > 0 && (
                       <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 rounded-lg text-sm text-amber-700 font-medium">
                         <span className="w-2 h-2 rounded-full bg-amber-400" />
-                        {stats.needAttention} out of range
+                        {stats.improvable} could be improved
                       </span>
                     )}
                   </div>
@@ -126,7 +127,7 @@ export function BiomarkerResultsPage() {
                   {priorityItems.length > 0 && (
                     <div className="flex items-center gap-4 mt-5">
                       <a href="#priority" className="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-colors">
-                        Review priority items
+                        See where to start
                       </a>
                       <button
                         onClick={() => setSelectedCategory('all')}
@@ -138,7 +139,7 @@ export function BiomarkerResultsPage() {
                   )}
 
                   <p className="text-xs text-gray-400 mt-5 leading-relaxed">
-                    Results are informational and meant to help guide conversations with your clinician.
+                    Your results are a guide, not a diagnosis. They're designed to help you and your health advisor focus on what matters most.
                   </p>
                 </div>
               </div>
@@ -147,7 +148,7 @@ export function BiomarkerResultsPage() {
             {/* Priority — "Focus here first" */}
             {priorityItems.length > 0 && (
               <div id="priority" className="mb-8 scroll-mt-8">
-                <h3 className="text-sm font-medium text-gray-900 mb-3">Focus here first</h3>
+                <h3 className="text-sm font-medium text-gray-900 mb-3">Your top opportunities</h3>
                 <div className="space-y-2">
                   {priorityItems.map(r => {
                     const severity = getSeverity(r);
@@ -166,8 +167,9 @@ export function BiomarkerResultsPage() {
                             <p className="text-xs text-gray-400">
                               {r.value} {r.biomarker.standardUnit}
                               <span className="mx-1">·</span>
-                              range {r.biomarker.referenceRange.low}–{r.biomarker.referenceRange.high}
+                              optimal {r.biomarker.referenceRange.low}–{r.biomarker.referenceRange.high}
                             </p>
+                            <p className="text-xs text-gray-500 mt-0.5">{getCoachingTip(r)}</p>
                           </div>
                         </div>
                         <span className={`text-xs font-medium shrink-0 ml-4 ${style.text}`}>{label}</span>

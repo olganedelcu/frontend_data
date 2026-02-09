@@ -26,29 +26,29 @@ export function RangeBar({ value, referenceRange, unit }: RangeBarProps) {
   return (
     <div className="w-full">
       <div className="relative h-3 rounded-full overflow-hidden flex">
-        {/* Red zone (low) */}
+        {/* Below optimal */}
         <div
-          className="bg-red-400 h-full"
+          className="bg-amber-300 h-full"
           style={{ width: `${lowZoneEnd}%` }}
         />
-        {/* Yellow zone (low-normal transition) */}
+        {/* Transition (low → optimal) */}
         <div
-          className="bg-amber-400 h-full"
+          className="bg-amber-200 h-full"
           style={{ width: `${(highZoneStart - lowZoneEnd) * 0.15}%` }}
         />
-        {/* Green zone (normal) */}
+        {/* Optimal zone */}
         <div
           className="bg-emerald-400 h-full"
           style={{ width: `${(highZoneStart - lowZoneEnd) * 0.7}%` }}
         />
-        {/* Yellow zone (normal-high transition) */}
+        {/* Transition (optimal → high) */}
         <div
-          className="bg-amber-400 h-full"
+          className="bg-amber-200 h-full"
           style={{ width: `${(highZoneStart - lowZoneEnd) * 0.15}%` }}
         />
-        {/* Red zone (high) */}
+        {/* Above optimal */}
         <div
-          className="bg-red-400 h-full flex-1"
+          className="bg-amber-300 h-full flex-1"
         />
       </div>
 

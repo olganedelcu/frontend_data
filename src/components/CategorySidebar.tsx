@@ -67,7 +67,7 @@ export function CategorySidebar({ categories, data, selectedCategory, onCategory
                 : 'text-amber-700 hover:bg-amber-50'
             }`}
           >
-            <span className="font-medium">Needs Attention</span>
+            <span className="font-medium">Could Be Improved</span>
             <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-full ${
               selectedCategory === 'attention'
                 ? 'bg-amber-500 text-white'

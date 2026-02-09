@@ -21,19 +21,19 @@ describe('getInterpretation()', () => {
   it('returns message for low status', () => {
     const result = createResult('low', 80);
     const interpretation = getInterpretation(result);
-    expect(interpretation).toContain('below the normal range');
+    expect(interpretation).toContain('below the optimal range');
   });
 
   it('returns message for normal status', () => {
     const result = createResult('normal', 150);
     const interpretation = getInterpretation(result);
-    expect(interpretation).toContain('within the normal range');
+    expect(interpretation).toContain('within the optimal range');
   });
 
   it('returns message for high status', () => {
     const result = createResult('high', 250);
     const interpretation = getInterpretation(result);
-    expect(interpretation).toContain('above the normal range');
+    expect(interpretation).toContain('above the optimal range');
   });
 
   it('includes biomarker name and value', () => {

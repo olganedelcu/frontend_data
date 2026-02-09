@@ -58,7 +58,7 @@ export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
           </div>
 
           <div>
-            <p className="text-xs text-gray-400 mb-2">Interpretation</p>
+            <p className="text-xs text-gray-400 mb-2">What this means</p>
             <p className="text-sm text-gray-600 leading-relaxed">{getInterpretation(result)}</p>
           </div>
 

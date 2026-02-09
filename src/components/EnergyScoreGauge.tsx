@@ -67,6 +67,7 @@ export function EnergyScoreGauge({ energyScore }: Props) {
           style={{ opacity: isVisible ? 1 : 0 }}
         >
           <span className="text-3xl font-bold text-gray-800">{animatedScore}</span>
+          <span className="text-[10px] text-gray-400 mt-0.5">Energy Index</span>
         </div>
       </div>
     </div>

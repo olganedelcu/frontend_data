@@ -33,7 +33,7 @@ export function BiomarkerCard({ result, onClick }: Props) {
       </div>
 
       <div className="mt-2 text-xs text-gray-400">
-        {biomarker.referenceRange.low}–{biomarker.referenceRange.high} {biomarker.standardUnit}
+        Optimal: {biomarker.referenceRange.low}–{biomarker.referenceRange.high} {biomarker.standardUnit}
       </div>
     </button>
   );

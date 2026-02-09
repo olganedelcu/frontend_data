@@ -35,11 +35,7 @@ export function getSeverityStyle(severity: Severity): StatusStyle {
 }
 
 export function getStatusLabel(status: Status, severity: Severity): string {
-  if (severity === 'normal') return 'Normal';
-  if (severity === 'mild') return status === 'high' ? 'Slightly high' : 'Slightly low';
-  return status === 'high' ? 'High' : 'Low';
-}
-
-export function capitalize(s: string): string {
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  if (severity === 'normal') return 'In range';
+  if (severity === 'mild') return status === 'high' ? 'Slightly above optimal' : 'Slightly below optimal';
+  return status === 'high' ? 'Above optimal range' : 'Below optimal range';
 }

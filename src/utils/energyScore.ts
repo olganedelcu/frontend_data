@@ -3,11 +3,11 @@ import type { EnergyScoreResult } from '../types/energyScore';
 import { getDeviation } from './status';
 
 function getLabel(score: number): string {
-  if (score >= 85) return 'Looking great';
-  if (score >= 70) return 'On track';
-  if (score >= 50) return 'Some areas to watch';
-  if (score >= 30) return 'Some results need attention';
-  return 'Several results need attention';
+  if (score >= 85) return 'You\'re doing great';
+  if (score >= 70) return 'You\'re on a good track';
+  if (score >= 50) return 'A few areas could be improved';
+  if (score >= 30) return 'Some results could be improved';
+  return 'There are opportunities to improve';
 }
 
 /** Keep only the most recent result per biomarker. */

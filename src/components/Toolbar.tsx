@@ -1,6 +1,12 @@
 import type { Status } from '../types/result';
 import type { SortField, SortDirection } from '../types/toolbar';
-import { capitalize } from '../utils/status';
+
+const STATUS_LABELS: Record<string, string> = {
+  all: 'All',
+  normal: 'In range',
+  low: 'Below optimal',
+  high: 'Above optimal',
+};
 
 const STATUS_OPTIONS = ['all', 'normal', 'low', 'high'] as const;
 
@@ -40,7 +46,7 @@ export function Toolbar({ selectedStatus, onStatusChange, sortField, onSortField
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              {capitalize(s)}
+              {STATUS_LABELS[s]}
             </button>
           ))}
         </div>
