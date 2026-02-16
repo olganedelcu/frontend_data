@@ -7,18 +7,16 @@ import { formatDate } from '../utils/format';
 
 interface Props {
   result: EnrichedResult | null;
+  allResults: EnrichedResult[];
   onClose: () => void;
   note: string;
-  onSaveNote: (resultId: string, note: string) => void;
+  onSaveNote: (resultsId: string, note: string) => void;
 }
 
-export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
+export function DetailsDrawer({ result, allResults, onClose, note, onSaveNote }: Props) {
   if (!result) return null;
-
-  const { biomarker, value, sampledAt } = result;
+  const { biomarker } = result;
   const { name, category, standardUnit, referenceRange } = biomarker;
-  const { style, label } = getResultDisplay(result);
-  const date = formatDate(sampledAt);
 
   return (
     <>
@@ -40,26 +38,27 @@ export function DetailsDrawer({ result, onClose, note, onSaveNote }: Props) {
         </div>
 
         <div className="px-6 py-6 space-y-6">
-          <div className="bg-gray-50 rounded-2xl p-5">
-            <div className="flex justify-between items-center mb-4">
-              <div>
-                <p className="text-xs text-gray-400 mb-1">Your Result</p>
-                <p className="text-3xl font-bold text-gray-900">
-                  {value}
-                  <span className="text-base font-normal text-gray-400 ml-1">{standardUnit}</span>
-                </p>
+          <p className="text-xs text-gray-400">Your results</p>
+          {allResults.map(r => {
+            const display = getResultDisplay(r);
+            return (
+              <div key={r.id} className="bg-gray-50 rounded-2xl p-5">
+                <div className="flex justify-between items-center mb-4">
+                  <div>
+                    <p className="text-xs text-gray-400 mb-1">{formatDate(r.sampledAt)}</p>
+                    <p className="text-3xl font-bold text-gray-900">
+                      {r.value}
+                      <span className="text-base font-normal text-gray-400 ml-1">{standardUnit}</span>
+                    </p>
+                  </div>
+                  <span className={`px-2.5 py-1 rounded-lg text-xs font-medium ${display.style.bg} ${display.style.text}`}>
+                    {display.label}
+                  </span>
+                </div>
+                <RangeBar value={r.value} referenceRange={referenceRange} unit={standardUnit} />
               </div>
-              <span className={`px-2.5 py-1 rounded-lg text-xs font-medium ${style.bg} ${style.text}`}>
-                {label}
-              </span>
-            </div>
-            <RangeBar value={value} referenceRange={referenceRange} unit={standardUnit} />
-          </div>
-
-          <div className="bg-gray-50 rounded-xl p-4">
-            <p className="text-xs text-gray-400 mb-1">Sampled</p>
-            <p className="text-sm font-medium text-gray-900">{date}</p>
-          </div>
+            );
+          })}
 
           <div>
             <p className="text-xs text-gray-400 mb-2">What this means</p>

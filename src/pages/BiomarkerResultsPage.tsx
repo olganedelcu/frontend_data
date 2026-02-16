@@ -21,6 +21,10 @@ export function BiomarkerResultsPage() {
   const [selectedResult, setSelectedResult] = useState<EnrichedResult | null>(null);
   const { filteredData, toolbarProps } = useResultFilters(data, selectedCategory);
 
+  const allResultsForBiomarker = selectedResult
+    ? rawData.filter(r => r.biomarkerId === selectedResult.biomarkerId)
+    : [];
+
   if (isLoading) return <LoadingScreen />;
   if (error) return <ErrorScreen message={error} />;
 
@@ -49,7 +53,7 @@ export function BiomarkerResultsPage() {
               energyScore={energyScore}
               stats={stats}
               priorityItems={selectedCategory === 'all' || selectedCategory === 'attention' ? priorityItems : []}
-              onSelectResult={setSelectedResult}
+              onSelectResult={setSelectedResult} // select result 
               onViewAll={() => setSelectedCategory('all')}
             />
 
@@ -70,6 +74,7 @@ export function BiomarkerResultsPage() {
 
       <DetailsDrawer
         result={selectedResult}
+        allResults={allResultsForBiomarker}
         onClose={() => setSelectedResult(null)}
         note={selectedResult ? getNote(selectedResult.id) : ''}
         onSaveNote={setNote}
