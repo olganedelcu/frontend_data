@@ -18,12 +18,15 @@ export function BiomarkerResultsPage() {
   const { data, energyScore, priorityItems, stats, formattedDate } = useDashboard(rawData);
 
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedResult, setSelectedResult] = useState<EnrichedResult | null>(null);
+  const [selectedResults, setSelectedResults] = useState<EnrichedResult[]>([]);
   const { filteredData, toolbarProps } = useResultFilters(data, selectedCategory);
 
-  const allResultsForBiomarker = selectedResult
-    ? rawData.filter(r => r.biomarkerId === selectedResult.biomarkerId)
-    : [];
+  const selectResult = (r: EnrichedResult) =>
+    setSelectedResults(
+      rawData
+        .filter(x => x.biomarkerId === r.biomarkerId)
+        .sort((a, b) => new Date(b.sampledAt).getTime() - new Date(a.sampledAt).getTime())
+    );
 
   if (isLoading) return <LoadingScreen />;
   if (error) return <ErrorScreen message={error} />;
@@ -53,7 +56,7 @@ export function BiomarkerResultsPage() {
               energyScore={energyScore}
               stats={stats}
               priorityItems={selectedCategory === 'all' || selectedCategory === 'attention' ? priorityItems : []}
-              onSelectResult={setSelectedResult} // select result 
+              onSelectResult={selectResult}
               onViewAll={() => setSelectedCategory('all')}
             />
 
@@ -64,7 +67,7 @@ export function BiomarkerResultsPage() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {filteredData.map(r => (
-                  <BiomarkerCard key={r.id} result={r} onClick={() => setSelectedResult(r)} />
+                  <BiomarkerCard key={r.id} result={r} onClick={() => selectResult(r)} />
                 ))}
               </div>
             )}
@@ -73,10 +76,9 @@ export function BiomarkerResultsPage() {
       </div>
 
       <DetailsDrawer
-        result={selectedResult}
-        allResults={allResultsForBiomarker}
-        onClose={() => setSelectedResult(null)}
-        note={selectedResult ? getNote(selectedResult.id) : ''}
+        results={selectedResults}
+        onClose={() => setSelectedResults([])}
+        note={selectedResults.length ? getNote(selectedResults[0].id) : ''}
         onSaveNote={setNote}
       />
     </div>

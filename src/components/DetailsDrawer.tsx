@@ -6,16 +6,15 @@ import { getInterpretation } from '../utils/interpretation';
 import { formatDate } from '../utils/format';
 
 interface Props {
-  result: EnrichedResult | null;
-  allResults: EnrichedResult[];
+  results: EnrichedResult[];
   onClose: () => void;
   note: string;
   onSaveNote: (resultsId: string, note: string) => void;
 }
 
-export function DetailsDrawer({ result, allResults, onClose, note, onSaveNote }: Props) {
-  if (!result) return null;
-  const { biomarker } = result;
+export function DetailsDrawer({ results, onClose, note, onSaveNote }: Props) {
+  if (results.length === 0) return null;
+  const { biomarker } = results[0];
   const { name, category, standardUnit, referenceRange } = biomarker;
 
   return (
@@ -39,7 +38,7 @@ export function DetailsDrawer({ result, allResults, onClose, note, onSaveNote }:
 
         <div className="px-6 py-6 space-y-6">
           <p className="text-xs text-gray-400">Your results</p>
-          {allResults.map(r => {
+          {results.map(r => {
             const display = getResultDisplay(r);
             return (
               <div key={r.id} className="bg-gray-50 rounded-2xl p-5">
@@ -62,10 +61,10 @@ export function DetailsDrawer({ result, allResults, onClose, note, onSaveNote }:
 
           <div>
             <p className="text-xs text-gray-400 mb-2">What this means</p>
-            <p className="text-sm text-gray-600 leading-relaxed">{getInterpretation(result)}</p>
+            <p className="text-sm text-gray-600 leading-relaxed">{getInterpretation(results[0])}</p>
           </div>
 
-          <NoteEditor key={result.id} resultId={result.id} initialValue={note} onSave={onSaveNote} />
+          <NoteEditor key={results[0].id} resultId={results[0].id} initialValue={note} onSave={onSaveNote} />
         </div>
       </div>
     </>
