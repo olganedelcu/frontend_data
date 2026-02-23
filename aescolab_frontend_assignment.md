@@ -1,4 +1,4 @@
-# Frontend Assignment: Biomarker Results UI
+Biomarker Results UI
 
 ## Goal
 Build a small, production-minded UI that displays and explores biomarker results. We're interested in how you structure the code, make UX decisions, and handle real-world states, not pixel-perfect visuals.
